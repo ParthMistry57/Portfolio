@@ -1,0 +1,17 @@
+# Dependencies and builds
+node_modules/
+dist/
+build/
+.eslintcache
+
+# Env and OS
+.env
+.env.*
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
