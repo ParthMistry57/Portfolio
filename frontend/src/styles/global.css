@@ -107,6 +107,66 @@ body {
   border-top: 1px solid #1f1f1f;
 }
 
+.contact-wrap{
+    text-align: center;
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 40px;
+}
+
+.contact-item {margin-bottom: 20px;}
+
+.contact-item > a {
+  margin-bottom: 40px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1.1rem;
+  opacity: 0.9;
+  transition: opacity 0.2s ease, text-decoration 0.2s ease;
+}
+
+.contact-item > a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* Contact page styles */
+.contact-wrap {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0;
+}
+
+.contact-item {
+  margin: 16px 0;
+}
+
+.contact-item a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  background: var(--panel);
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+  transition: background 0.2s ease;
+  border: 1px solid #1f1f1f;
+}
+
+.contact-item a:hover {
+  background: #1a1a1a;
+  color: var(--accent);
+}
+
 /* to make it responsive */
 @media (max-width: 900px) {
   .profile { grid-template-columns: 1fr; }
