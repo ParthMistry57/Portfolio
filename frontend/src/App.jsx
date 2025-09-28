@@ -3,6 +3,7 @@ import NavBar from './components/NavBar.jsx'
 import Footer from './components/Footer.jsx'
 import Home from './pages/Home.jsx'
 import Contact from './pages/Contact.jsx'
+import Experience from './pages/Experience.jsx'
 import Analytics from './components/Analytics.jsx'
 import AnalyticsDashboard from './pages/Analytics.jsx'
 
@@ -15,7 +16,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<Home />} />
-          <Route path="/experience" element={<div />} />
+          <Route path="/experience" element={<Experience />} />
           <Route path="/projects" element={<div />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/analytics" element={<AnalyticsDashboard />} />

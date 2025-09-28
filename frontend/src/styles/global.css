@@ -342,11 +342,147 @@ body {
   color: #ff6b6b;
 }
 
+/* Experience Page Styles */
+.experience-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.page-title {
+  text-align: center;
+  color: var(--accent);
+  margin-bottom: 40px;
+  font-size: 2.5rem;
+}
+
+.experience-section {
+  background: var(--panel);
+  padding: 32px;
+  border-radius: 12px;
+  margin-bottom: 32px;
+  border: 1px solid #1f1f1f;
+}
+
+.section-title {
+  color: var(--accent);
+  margin: 0 0 24px 0;
+  font-size: 1.8rem;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 8px;
+}
+
+.experience-item {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #1f1f1f;
+}
+
+.experience-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.experience-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.job-title {
+  color: var(--accent);
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.company {
+  color: var(--text);
+  font-weight: 500;
+  background: var(--bg);
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid #1f1f1f;
+}
+
+.duration {
+  color: var(--muted);
+  font-size: 0.9rem;
+  background: var(--bg);
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid #1f1f1f;
+}
+
+.job-description {
+  color: var(--text);
+  line-height: 1.6;
+  margin: 0 0 16px 0;
+}
+
+.technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tech-tag {
+  background: var(--accent);
+  color: var(--bg);
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.skill-category h4 {
+  color: var(--accent);
+  margin: 0 0 12px 0;
+  font-size: 1.2rem;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tag {
+  background: var(--bg);
+  color: var(--text);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  border: 1px solid #1f1f1f;
+  transition: all 0.2s ease;
+}
+
+.skill-tag:hover {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+
 /* to make it responsive */
 @media (max-width: 900px) {
   .profile { grid-template-columns: 1fr; }
   .profile-title { font-size: 42px; }
   .analytics-overview {
+    grid-template-columns: 1fr;
+  }
+  .experience-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .skills-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -361,5 +497,14 @@ body {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+  }
+  .experience-page {
+    padding: 16px;
+  }
+  .experience-section {
+    padding: 20px;
+  }
+  .page-title {
+    font-size: 2rem;
   }
 }
