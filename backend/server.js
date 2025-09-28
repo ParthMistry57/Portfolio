@@ -6,6 +6,7 @@ require('dotenv').config();
 // Import models
 const Visitor = require('./models/Visitor');
 const PageView = require('./models/PageView');
+const Project = require('./models/Project');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -107,6 +108,88 @@ app.delete('/api/analytics/clear', async (req, res) => {
   } catch (error) {
     console.error('Clear analytics error:', error);
     res.status(500).json({ error: 'Failed to clear analytics data' });
+  }
+});
+
+// Project Routes
+app.get('/api/projects', async (req, res) => {
+  try {
+    const projects = await Project.find({ isActive: true }).sort({ order: 1, createdAt: -1 });
+    res.json(projects);
+  } catch (error) {
+    console.error('Projects fetch error:', error);
+    res.status(500).json({ error: 'Failed to fetch projects' });
+  }
+});
+
+app.post('/api/projects', async (req, res) => {
+  try {
+    const { name, company, date, description, technologies, githubUrl, liveUrl } = req.body;
+    
+    const project = new Project({
+      name,
+      company,
+      date,
+      description,
+      technologies: technologies || [],
+      githubUrl: githubUrl || '',
+      liveUrl: liveUrl || '',
+      order: await Project.countDocuments()
+    });
+    
+    await project.save();
+    res.json({ success: true, project });
+  } catch (error) {
+    console.error('Project creation error:', error);
+    res.status(500).json({ error: 'Failed to create project' });
+  }
+});
+
+app.put('/api/projects/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, company, date, description, technologies, githubUrl, liveUrl } = req.body;
+    
+    const project = await Project.findByIdAndUpdate(
+      id,
+      {
+        name,
+        company,
+        date,
+        description,
+        technologies: technologies || [],
+        githubUrl: githubUrl || '',
+        liveUrl: liveUrl || '',
+        updatedAt: new Date()
+      },
+      { new: true }
+    );
+    
+    if (!project) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+    
+    res.json({ success: true, project });
+  } catch (error) {
+    console.error('Project update error:', error);
+    res.status(500).json({ error: 'Failed to update project' });
+  }
+});
+
+app.delete('/api/projects/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const project = await Project.findByIdAndDelete(id);
+    
+    if (!project) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+    
+    res.json({ success: true, message: 'Project deleted successfully' });
+  } catch (error) {
+    console.error('Project deletion error:', error);
+    res.status(500).json({ error: 'Failed to delete project' });
   }
 });
 

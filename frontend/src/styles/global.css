@@ -137,7 +137,15 @@ body {
 .contact-wrap {
   max-width: 600px;
   margin: 0 auto;
+  background: var(--panel);
+  padding: 32px;
+  border-radius: 12px;
+  border: 1px solid #1f1f1f;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
 }
+
+/* Shadow always visible - no hover effect */
 
 .contact-list {
   list-style: none;
@@ -172,6 +180,32 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+}
+
+.analytics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.add-project-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.add-project-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .analytics-title {
@@ -326,6 +360,261 @@ body {
   opacity: 0.9;
 }
 
+/* Project Form Styles */
+.project-form-section {
+  background: var(--panel);
+  padding: 32px;
+  border-radius: 12px;
+  margin-top: 32px;
+  border: 1px solid #1f1f1f;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.form-title {
+  color: var(--accent);
+  margin-bottom: 24px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.project-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  color: var(--text);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea {
+  background: var(--bg);
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: var(--text);
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.cancel-btn {
+  background: #6b7280;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background: #4b5563;
+  transform: translateY(-1px);
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Projects Loading and Error States */
+.projects-loading,
+.projects-error {
+  text-align: center;
+  padding: 40px;
+  color: var(--text);
+  font-size: 18px;
+}
+
+.projects-error {
+  color: #ef4444;
+}
+
+.no-projects {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Live Link Styles */
+.live-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  margin-left: 16px;
+}
+
+.live-link:hover {
+  color: #10b981;
+  transform: translateY(-1px);
+}
+
+.live-icon {
+  font-size: 16px;
+}
+
+/* Projects Management Styles */
+.projects-management-section {
+  background: var(--panel);
+  padding: 32px;
+  border-radius: 12px;
+  margin-top: 32px;
+  border: 1px solid #1f1f1f;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.section-title {
+  color: var(--accent);
+  margin-bottom: 24px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.project-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: var(--bg);
+  border: 1px solid #333;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.project-item:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.project-info {
+  flex: 1;
+}
+
+.project-info .project-name {
+  color: var(--text);
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.project-info .project-company {
+  color: var(--text-muted);
+  margin: 0;
+  font-size: 14px;
+}
+
+.project-description-preview {
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.4;
+  margin-top: 8px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-height: 60px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.project-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.edit-btn {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+}
+
+.edit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+.delete-btn {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+}
+
+.delete-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+}
+
 .clear-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
@@ -362,7 +651,11 @@ body {
   border-radius: 12px;
   margin-bottom: 32px;
   border: 1px solid #1f1f1f;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
 }
+
+/* Shadow always visible - no hover effect */
 
 .section-title {
   color: var(--accent);
@@ -481,9 +774,13 @@ body {
   .experience-header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 8px;
   }
   .skills-grid {
     grid-template-columns: 1fr;
+  }
+  .skill-tags {
+    justify-content: flex-start;
   }
 }
 @media (max-width: 480px) {
@@ -492,6 +789,30 @@ body {
   .profile-title { font-size: 36px; }
   .analytics-dashboard {
     padding: 16px;
+  }
+  
+  .analytics-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .project-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  
+  .project-actions {
+    justify-content: center;
   }
   .visitor-item {
     flex-direction: column;
@@ -506,5 +827,154 @@ body {
   }
   .page-title {
     font-size: 2rem;
+  }
+  .job-title {
+    font-size: 1.2rem;
+  }
+  .section-title {
+    font-size: 1.5rem;
+  }
+  .company, .duration {
+    font-size: 0.85rem;
+  }
+}
+
+/* Projects Page Styles */
+.projects-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.projects-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.project-card {
+  background: var(--panel);
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #1f1f1f;
+  transition: all 0.3s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Shadow always visible - no hover effect */
+
+/* Removed hover effects - cards stay static */
+
+.project-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #1f1f1f;
+}
+
+.project-name {
+  color: var(--accent);
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.project-company {
+  color: var(--text);
+  font-weight: 500;
+  background: var(--bg);
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid #1f1f1f;
+  font-size: 0.9rem;
+}
+
+.project-date {
+  color: var(--muted);
+  font-size: 0.9rem;
+  background: var(--bg);
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid #1f1f1f;
+}
+
+.project-content {
+  margin-top: 16px;
+}
+
+.project-description {
+  color: var(--text);
+  line-height: 1.6;
+  margin: 0 0 16px 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.project-technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.project-links {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #1f1f1f;
+}
+
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 16px;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.github-link:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.github-icon {
+  font-size: 1.1rem;
+}
+
+/* Responsive for Projects */
+@media (max-width: 900px) {
+  .project-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .projects-page {
+    padding: 16px;
+  }
+  .project-card {
+    padding: 20px;
+  }
+  .project-name {
+    font-size: 1.2rem;
+  }
+  .project-company, .project-date {
+    font-size: 0.85rem;
   }
 }
