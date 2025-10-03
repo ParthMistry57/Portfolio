@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import Login from '../components/Login';
 
 export default function Analytics() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [analyticsData, setAnalyticsData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -20,9 +22,38 @@ export default function Analytics() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
+    // Check if user is already authenticated
+    const authStatus = localStorage.getItem('isAuthenticated');
+    if (authStatus === 'true') {
+      setIsAuthenticated(true);
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
     const fetchAnalytics = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/analytics/dashboard');
+        // Get stored credentials from localStorage
+        const storedUsername = localStorage.getItem('username');
+        const storedPassword = localStorage.getItem('password');
+        
+        if (!storedUsername || !storedPassword) {
+          throw new Error('Authentication required');
+        }
+
+        const response = await fetch('http://localhost:5000/api/analytics/dashboard', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: storedUsername,
+            password: storedPassword
+          })
+        });
         if (!response.ok) throw new Error('Failed to fetch analytics');
         const data = await response.json();
         setAnalyticsData(data);
@@ -46,7 +77,7 @@ export default function Analytics() {
 
     fetchAnalytics();
     fetchProjects();
-  }, []);
+  }, [isAuthenticated]);
 
   const clearAllData = async () => {
     if (!window.confirm('Are you sure you want to clear all analytics data? This action cannot be undone.')) {
@@ -55,14 +86,33 @@ export default function Analytics() {
 
     setClearing(true);
     try {
+      const storedUsername = localStorage.getItem('username');
+      const storedPassword = localStorage.getItem('password');
+
       const response = await fetch('http://localhost:5000/api/analytics/clear', {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: storedUsername,
+          password: storedPassword
+        })
       });
 
       if (!response.ok) throw new Error('Failed to clear data');
 
       // Refresh the data
-      const dashboardResponse = await fetch('http://localhost:5000/api/analytics/dashboard');
+      const dashboardResponse = await fetch('http://localhost:5000/api/analytics/dashboard', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: storedUsername,
+          password: storedPassword
+        })
+      });
       const data = await dashboardResponse.json();
       setAnalyticsData(data);
 
@@ -91,6 +141,9 @@ export default function Analytics() {
       
       const method = editingProject ? 'PUT' : 'POST';
 
+      const storedUsername = localStorage.getItem('username');
+      const storedPassword = localStorage.getItem('password');
+
       const response = await fetch(url, {
         method,
         headers: {
@@ -98,7 +151,9 @@ export default function Analytics() {
         },
         body: JSON.stringify({
           ...projectForm,
-          technologies: technologiesArray
+          technologies: technologiesArray,
+          username: storedUsername,
+          password: storedPassword
         })
       });
 
@@ -149,8 +204,18 @@ export default function Analytics() {
     }
 
     try {
+      const storedUsername = localStorage.getItem('username');
+      const storedPassword = localStorage.getItem('password');
+
       const response = await fetch(`http://localhost:5000/api/projects/${projectId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: storedUsername,
+          password: storedPassword
+        })
       });
 
       if (!response.ok) throw new Error('Failed to delete project');
@@ -181,6 +246,20 @@ export default function Analytics() {
     setShowProjectForm(false);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('username');
+    localStorage.removeItem('password');
+    setIsAuthenticated(false);
+    setAnalyticsData(null);
+    setProjects([]);
+  };
+
+  // Show login form if not authenticated
+  if (!isAuthenticated) {
+    return <Login onLogin={setIsAuthenticated} />;
+  }
+
   if (loading) return <div className="analytics-loading">Loading analytics...</div>;
   if (error) return <div className="analytics-error">Error: {error}</div>;
   if (!analyticsData) return <div className="analytics-error">No data available</div>;
@@ -189,18 +268,26 @@ export default function Analytics() {
     <div className="analytics-dashboard">
       <div className="analytics-header">
         <h1 className="analytics-title">📊 Visitor Counter</h1>
-        <button 
-          className="add-project-btn"
-          onClick={() => {
-            if (showProjectForm) {
-              resetForm();
-            } else {
-              setShowProjectForm(true);
-            }
-          }}
-        >
-          {showProjectForm ? '❌ Cancel' : '➕ Add Project'}
-        </button>
+        <div className="analytics-header-actions">
+          <button 
+            className="add-project-btn"
+            onClick={() => {
+              if (showProjectForm) {
+                resetForm();
+              } else {
+                setShowProjectForm(true);
+              }
+            }}
+          >
+            {showProjectForm ? '❌ Cancel' : '➕ Add Project'}
+          </button>
+          <button 
+            className="logout-btn"
+            onClick={handleLogout}
+          >
+            🚪 Logout
+          </button>
+        </div>
       </div>
       
       {/* Main Counter */}

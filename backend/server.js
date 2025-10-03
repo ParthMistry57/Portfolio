@@ -1,12 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 // Import models
 const Visitor = require('./models/Visitor');
 const PageView = require('./models/PageView');
 const Project = require('./models/Project');
+const User = require('./models/User');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -15,6 +17,39 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Secure authentication middleware using database
+const authenticateUser = async (req, res, next) => {
+  try {
+    const { username, password } = req.body;
+    
+    if (!username || !password) {
+      return res.status(401).json({ error: 'Username and password required' });
+    }
+
+    // Find user in database
+    const user = await User.findOne({ username });
+    
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    // Compare password with hashed password
+    const isValidPassword = await bcrypt.compare(password, user.password);
+    
+    if (!isValidPassword) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    // Authentication successful
+    req.authenticated = true;
+    req.user = { username: user.username, role: user.role };
+    next();
+  } catch (error) {
+    console.error('Authentication error:', error);
+    res.status(500).json({ error: 'Authentication failed' });
+  }
+};
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio_analytics')
@@ -31,6 +66,18 @@ app.get('/api/health', (req, res) => {
     status: 'OK', 
     timestamp: new Date().toISOString(),
     service: 'Portfolio Backend'
+  });
+});
+
+// Authentication Routes
+app.post('/api/auth/login', authenticateUser, (req, res) => {
+  res.json({ 
+    success: true, 
+    message: 'Login successful',
+    user: { 
+      username: req.user.username,
+      role: req.user.role 
+    }
   });
 });
 
@@ -74,7 +121,7 @@ app.post('/api/analytics/track', async (req, res) => {
   }
 });
 
-app.get('/api/analytics/dashboard', async (req, res) => {
+app.post('/api/analytics/dashboard', authenticateUser, async (req, res) => {
   try {
     const totalVisitors = await Visitor.countDocuments();
     
@@ -94,7 +141,7 @@ app.get('/api/analytics/dashboard', async (req, res) => {
 });
 
 // Clear all analytics data
-app.delete('/api/analytics/clear', async (req, res) => {
+app.delete('/api/analytics/clear', authenticateUser, async (req, res) => {
   try {
     // Delete all visitors and page views
     await Visitor.deleteMany({});
@@ -122,7 +169,7 @@ app.get('/api/projects', async (req, res) => {
   }
 });
 
-app.post('/api/projects', async (req, res) => {
+app.post('/api/projects', authenticateUser, async (req, res) => {
   try {
     const { name, company, date, description, technologies, githubUrl, liveUrl } = req.body;
     
@@ -145,7 +192,7 @@ app.post('/api/projects', async (req, res) => {
   }
 });
 
-app.put('/api/projects/:id', async (req, res) => {
+app.put('/api/projects/:id', authenticateUser, async (req, res) => {
   try {
     const { id } = req.params;
     const { name, company, date, description, technologies, githubUrl, liveUrl } = req.body;
@@ -176,7 +223,7 @@ app.put('/api/projects/:id', async (req, res) => {
   }
 });
 
-app.delete('/api/projects/:id', async (req, res) => {
+app.delete('/api/projects/:id', authenticateUser, async (req, res) => {
   try {
     const { id } = req.params;
     
