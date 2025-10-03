@@ -44,7 +44,7 @@ export default function Analytics() {
           throw new Error('Authentication required');
         }
 
-        const response = await fetch('http://localhost:5000/api/analytics/dashboard', {
+        const response = await fetch('https://portfolio-production-bde8.up.railway.app/api/analytics/dashboard', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ export default function Analytics() {
 
     const fetchProjects = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/projects');
+        const response = await fetch('https://portfolio-production-bde8.up.railway.app/api/projects');
         if (!response.ok) throw new Error('Failed to fetch projects');
         const data = await response.json();
         setProjects(data);
@@ -89,7 +89,7 @@ export default function Analytics() {
       const storedUsername = localStorage.getItem('username');
       const storedPassword = localStorage.getItem('password');
 
-      const response = await fetch('http://localhost:5000/api/analytics/clear', {
+      const response = await fetch('https://portfolio-production-bde8.up.railway.app/api/analytics/clear', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ export default function Analytics() {
       if (!response.ok) throw new Error('Failed to clear data');
 
       // Refresh the data
-      const dashboardResponse = await fetch('http://localhost:5000/api/analytics/dashboard', {
+      const dashboardResponse = await fetch('https://portfolio-production-bde8.up.railway.app/api/analytics/dashboard', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -136,8 +136,8 @@ export default function Analytics() {
         .filter(tech => tech.length > 0);
 
       const url = editingProject 
-        ? `http://localhost:5000/api/projects/${editingProject._id}`
-        : 'http://localhost:5000/api/projects';
+        ? `https://portfolio-production-bde8.up.railway.app/api/projects/${editingProject._id}`
+        : 'https://portfolio-production-bde8.up.railway.app/api/projects';
       
       const method = editingProject ? 'PUT' : 'POST';
 
@@ -163,7 +163,7 @@ export default function Analytics() {
       alert(`Project ${editingProject ? 'updated' : 'added'} successfully!`);
       
       // Refresh projects list
-      const projectsResponse = await fetch('http://localhost:5000/api/projects');
+      const projectsResponse = await fetch('https://portfolio-production-bde8.up.railway.app/api/projects');
       const projectsData = await projectsResponse.json();
       setProjects(projectsData);
       
@@ -207,7 +207,7 @@ export default function Analytics() {
       const storedUsername = localStorage.getItem('username');
       const storedPassword = localStorage.getItem('password');
 
-      const response = await fetch(`http://localhost:5000/api/projects/${projectId}`, {
+      const response = await fetch(`https://portfolio-production-bde8.up.railway.app/api/projects/${projectId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -221,7 +221,7 @@ export default function Analytics() {
       if (!response.ok) throw new Error('Failed to delete project');
 
       // Refresh projects list
-      const projectsResponse = await fetch('http://localhost:5000/api/projects');
+      const projectsResponse = await fetch('https://portfolio-production-bde8.up.railway.app/api/projects');
       const projectsData = await projectsResponse.json();
       setProjects(projectsData);
 
