@@ -55,19 +55,184 @@ body {
   padding: 32px 24px 48px;
 }
 
-.profile {
-  display: grid;
-  grid-template-columns: 340px 1fr;
-  gap: 36px;
+/* ===== HOME PAGE - MINIMALIST GRID LAYOUT ===== */
+.minimalist-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 40px;
+  min-height: 80vh;
+  display: flex;
   align-items: center;
 }
 
-.profile-photo {
+.minimalist-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: auto auto auto auto auto;
+  gap: 48px;
   width: 100%;
-  height: auto;
-  border-radius: 12px;
-  background: var(--panel);
-  display: block;
+  align-items: start;
+}
+
+.grid-item {
+  display: flex;
+  align-items: center;
+}
+
+.photo-item {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  justify-content: center;
+}
+
+.minimalist-photo {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border);
+  transition: all 0.3s ease;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
+.minimalist-photo:hover {
+  transform: scale(1.02);
+  border-color: var(--accent);
+}
+
+.name-item {
+  grid-column: 2;
+  grid-row: 1;
+  justify-content: flex-start;
+}
+
+.title-item {
+  grid-column: 2;
+  grid-row: 2;
+  justify-content: flex-start;
+}
+
+.minimalist-title {
+  font-size: 1.5rem;
+  color: var(--accent);
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.description-item {
+  grid-column: 1 / 3;
+  grid-row: 3;
+  justify-content: flex-start;
+}
+
+.experience-item {
+  grid-column: 1 / 3;
+  grid-row: 4;
+  justify-content: flex-start;
+}
+
+.passion-item {
+  grid-column: 1 / 3;
+  grid-row: 5;
+  justify-content: flex-start;
+}
+
+.minimalist-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 300;
+  letter-spacing: 0.3px;
+}
+
+/* Responsive Design for Minimalist Grid */
+@media (max-width: 968px) {
+  .minimalist-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    text-align: center;
+  }
+  
+  .photo-item {
+    grid-column: 1;
+    grid-row: 1;
+    justify-content: center;
+  }
+  
+  .name-item {
+    grid-column: 1;
+    grid-row: 2;
+    justify-content: center;
+  }
+  
+  .title-item {
+    grid-column: 1;
+    grid-row: 3;
+    justify-content: center;
+  }
+  
+  .description-item {
+    grid-column: 1;
+    grid-row: 4;
+  }
+  
+  .experience-item {
+    grid-column: 1;
+    grid-row: 5;
+  }
+  
+  .passion-item {
+    grid-column: 1;
+    grid-row: 6;
+  }
+  
+  .minimalist-photo {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .minimalist-container {
+    padding: 60px 24px;
+  }
+  
+  .minimalist-grid {
+    gap: 24px;
+  }
+  
+  .minimalist-photo {
+    width: 180px;
+    height: 180px;
+  }
+  
+  .minimalist-text {
+    font-size: 1rem;
+  }
+  
+  .minimalist-title {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .minimalist-container {
+    padding: 40px 20px;
+  }
+  
+  .minimalist-photo {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .minimalist-grid {
+    gap: 20px;
+  }
 }
 
 .profile-photo-placeholder {

@@ -135,9 +135,9 @@ export default function Analytics() {
         .map(tech => tech.trim())
         .filter(tech => tech.length > 0);
 
-      const url = editingProject 
-        ? `https://portfolio-production-bde8.up.railway.app/api/projects/${editingProject._id}`
-        : 'https://portfolio-production-bde8.up.railway.app/api/projects';
+        const url = editingProject 
+          ? `https://portfolio-production-bde8.up.railway.app/api/projects/${editingProject._id}`
+          : 'https://portfolio-production-bde8.up.railway.app/api/projects';
       
       const method = editingProject ? 'PUT' : 'POST';
 
