@@ -6,6 +6,24 @@ export default function Experience() {
       {/* Work Experience Section */}
       <section className="experience-section">
         <h2 className="section-title">Work Experience</h2>
+
+        <div className="experience-item">
+          <div className="experience-header">
+            <h3 className="job-title">Junior Web Developer</h3>
+            <span className="company">MBLogistics Group</span>
+            <span className="duration">Sept 2025 - Present</span>
+          </div>
+          <div className="experience-content">
+            <p className="job-description">
+            • Contributing to the design and full-stack development of new websites, from initial concept and wireframing in Figma to front-end implementation and back-end integration. <br/>
+            • Developing modern, scalable web applications using React, Next.js, TypeScript, Tailwind CSS, MUI, and ShadCN, ensuring responsive design and optimal user experience across devices. <br/>
+            • Implementing and maintaining back-end functionality with Node.js, Express.js, and MySQL, including database schema design and RESTful API integration. <br/>
+            • Collaborating with developers and stakeholders in an Agile environment to translate requirements into clean, maintainable, and documented code. <br/>
+            • Actively involved in debugging, code reviews, and documentation to ensure quality, consistency, and team-wide knowledge sharing. <br/>
+            • Contributing to workflow improvements by suggesting UI/UX enhancements and process optimizations that support efficient, high-quality development. <br/>
+            </p>
+          </div>
+        </div>
         
         <div className="experience-item">
           <div className="experience-header">
