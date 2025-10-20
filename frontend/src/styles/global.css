@@ -27,6 +27,7 @@ body {
 .navbar {
   position: sticky;
   top: 0;
+  z-index: 1000;
   background: var(--bg);
   padding: 16px 24px;
   border-bottom: 1px solid #1f1f1f;
@@ -123,22 +124,33 @@ body {
   letter-spacing: 0.5px;
 }
 
-.description-item {
+.minimalist-grid .description-item {
   grid-column: 1 / 3;
   grid-row: 3;
   justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 0;
+  padding: 0;
 }
 
-.experience-item {
+.minimalist-grid .experience-item {
   grid-column: 1 / 3;
   grid-row: 4;
   justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 0;
+  padding: 0;
+  border-radius: 0;
+  border-bottom: none;
 }
 
-.passion-item {
+.minimalist-grid .passion-item {
   grid-column: 1 / 3;
   grid-row: 5;
   justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 0;
+  padding: 0;
 }
 
 .minimalist-text {
@@ -821,6 +833,11 @@ body {
   transition: all 0.3s ease;
 }
 
+.experience-section:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
 /* Shadow always visible - no hover effect */
 
 .section-title {
@@ -833,8 +850,10 @@ body {
 
 .experience-item {
   margin-bottom: 32px;
-  padding-bottom: 24px;
+  padding: 20px;
+  border-radius: 8px;
   border-bottom: 1px solid #1f1f1f;
+  transition: all 0.3s ease;
 }
 
 .experience-item:last-child {
@@ -905,6 +924,20 @@ body {
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.skill-category {
+  background: var(--bg);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #1f1f1f;
+  transition: all 0.3s ease;
+}
+
+.skill-category:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .skill-category h4 {

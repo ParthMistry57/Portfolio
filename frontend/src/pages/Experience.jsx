@@ -55,11 +55,16 @@ export default function Experience() {
             <h4>Frontend</h4>
             <div className="skill-tags">
               <span className="skill-tag">React</span>
+              <span className="skill-tag">Next.js</span>
               <span className="skill-tag">Vue.js</span>
               <span className="skill-tag">TypeScript</span>
               <span className="skill-tag">JavaScript (ES6+)</span>
               <span className="skill-tag">HTML5</span>
               <span className="skill-tag">CSS3</span>
+              <span className="skill-tag">MUI</span>
+              <span className="skill-tag">ShadCN</span>
+              <span className="skill-tag">Tailwind CSS</span>
+              <span className="skill-tag">Axios</span>
               <span className="skill-tag">Vite</span>
               <span className="skill-tag">Figma (UI/UX)</span>
               <span className="skill-tag">Responsive Design</span>
@@ -71,7 +76,9 @@ export default function Experience() {
             <div className="skill-tags">
               <span className="skill-tag">Node.js</span>
               <span className="skill-tag">Express</span>
-              <span className="skill-tag"> REST APIs</span>
+              <span className="skill-tag">REST APIs</span>
+              <span className="skill-tag">GraphQL</span>
+              <span className="skill-tag">Swagger</span>
               <span className="skill-tag">C#</span>
               <span className="skill-tag">ASP.NET MVC</span>
             </div>
@@ -91,8 +98,11 @@ export default function Experience() {
             <h4>Tools & Others</h4>
             <div className="skill-tags">
               <span className="skill-tag">Git</span>
+              <span className="skill-tag">Jira</span>
               <span className="skill-tag">Agile</span>
               <span className="skill-tag">Electron</span>
+              <span className="skill-tag">Playwright</span>
+              <span className="skill-tag">Unit & Integration Testing</span>
               <span className="skill-tag">Clean Code</span>
             </div>
           </div>
