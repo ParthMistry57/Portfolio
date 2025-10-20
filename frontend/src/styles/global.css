@@ -1070,6 +1070,12 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
+.project-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
 /* Shadow always visible - no hover effect */
 
 /* Removed hover effects - cards stay static */
