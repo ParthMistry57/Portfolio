@@ -191,16 +191,22 @@ body {
   .description-item {
     grid-column: 1;
     grid-row: 4;
+    text-align: left;
+    justify-content: flex-start;
   }
   
   .experience-item {
     grid-column: 1;
     grid-row: 5;
+    text-align: left;
+    justify-content: flex-start;
   }
   
   .passion-item {
     grid-column: 1;
     grid-row: 6;
+    text-align: left;
+    justify-content: flex-start;
   }
   
   .minimalist-photo {
@@ -230,6 +236,14 @@ body {
   .minimalist-title {
     font-size: 1.3rem;
   }
+  
+  .title-item {
+    margin-bottom: 32px;
+  }
+  
+  .description-item {
+    margin-top: 32px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -244,6 +258,19 @@ body {
   
   .minimalist-grid {
     gap: 20px;
+  }
+  
+  .title-item {
+    margin-bottom: 40px;
+  }
+  
+  .description-item {
+    margin-top: 40px;
+  }
+  
+  .minimalist-title {
+    font-size: 1.2rem;
+    line-height: 1.4;
   }
 }
 
