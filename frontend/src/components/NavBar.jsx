@@ -1,14 +1,49 @@
-import { NavLink } from 'react-router-dom'
+import { useContext } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { ThemeContext } from '../App.jsx'
 
 export default function NavBar() {
+  const { theme, toggleTheme } = useContext(ThemeContext)
+
   return (
     <header className="navbar">
-      <nav className="nav">
-        <NavLink to="/">About Me</NavLink>
-        <NavLink to="/experience">Experience</NavLink>
-        <NavLink to="/projects">Projects</NavLink>
-        <NavLink to="/contact">Contact</NavLink>
-      </nav>
+      <div className="nav-container">
+        <div className="logo">
+          <Link to="/"></Link>
+        </div>
+
+        <nav className="nav-pill">
+          <Link to="/#about">About Me</Link>
+          <Link to="/#experience">Experience</Link>
+          <Link to="/projects">Projects</Link>
+          <Link to="/#contact">Contact</Link>
+
+          <button
+            onClick={toggleTheme}
+            className="theme-toggle"
+            aria-label="Toggle Theme"
+            style={{ marginLeft: '12px' }}
+          >
+            {theme === 'dark' ? (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            ) : (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            )}
+          </button>
+        </nav>
+      </div>
     </header>
   )
 }
