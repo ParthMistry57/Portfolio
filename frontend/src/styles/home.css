@@ -66,6 +66,8 @@
     border: 1px solid var(--border);
     border-radius: 24px;
     padding: 60px;
+    box-shadow: var(--shadow-md);
+    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
 }
 
 .hero-grid {
@@ -175,6 +177,8 @@
     border: 1px solid var(--border);
     border-radius: 24px;
     padding: 40px;
+    box-shadow: var(--shadow-md);
+    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
 }
 
 .stats-grid {
@@ -242,11 +246,23 @@
     border: 1px solid var(--card-border);
     border-radius: 20px;
     overflow: hidden;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
 }
 
 .featured-card:hover {
     transform: translateY(-4px);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.75);
+    border-color: rgba(102, 126, 234, 0.3);
+}
+
+/* Stronger, visible shadows in light mode */
+[data-theme='light'] .featured-card {
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18);
+}
+
+[data-theme='light'] .featured-card:hover {
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.28);
 }
 
 .featured-card-image {
@@ -299,6 +315,8 @@
     border: 1px solid var(--border);
     border-radius: 24px;
     padding: 60px;
+    box-shadow: var(--shadow-md);
+    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
 }
 
 .contact-grid-modern {
@@ -329,6 +347,14 @@
     border: 1px solid var(--card-border);
     padding: 16px 20px;
     border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+
+.contact-method-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(102, 126, 234, 0.3);
 }
 
 .mock-avatar {
