@@ -266,6 +266,9 @@
 
 .featured-card-content {
     padding: 30px;
+    min-height: 210px;
+    display: flex;
+    flex-direction: column;
 }
 
 .featured-card-meta {
