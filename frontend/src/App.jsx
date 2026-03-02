@@ -8,9 +8,14 @@ import Analytics from './components/Analytics.jsx'
 import AnalyticsDashboard from './pages/Analytics.jsx'
 
 export const ThemeContext = createContext()
+export const ActiveSectionContext = createContext({
+  activeSection: 'about',
+  setActiveSection: () => {},
+})
 
 export default function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark')
+  const [activeSection, setActiveSection] = useState('about')
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
@@ -23,18 +28,20 @@ export default function App() {
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <div className="app">
-        <Analytics />
-        <NavBar />
-        <main className="content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/analytics" element={<AnalyticsDashboard />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <ActiveSectionContext.Provider value={{ activeSection, setActiveSection }}>
+        <div className="app">
+          <Analytics />
+          <NavBar />
+          <main className="content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/analytics" element={<AnalyticsDashboard />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </ActiveSectionContext.Provider>
     </ThemeContext.Provider>
   )
 }

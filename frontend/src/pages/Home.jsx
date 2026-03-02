@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import FormattedName from '../components/FormattedName.jsx'
 import me from '../assets/me.jpg'
 import '../styles/home.css'
+import { ActiveSectionContext } from '../App.jsx'
 
 export default function Home() {
   const [featuredProjects, setFeaturedProjects] = useState([]);
@@ -10,6 +11,7 @@ export default function Home() {
   const [expandedProjectIds, setExpandedProjectIds] = useState(new Set());
   const observerRefs = useRef([]);
   const location = useLocation();
+  const { setActiveSection } = useContext(ActiveSectionContext)
 
   const toggleProjectExpanded = (id) => {
     setExpandedProjectIds((prev) => {
@@ -25,16 +27,17 @@ export default function Home() {
       const id = location.hash.replace('#', '');
       const element = document.getElementById(id);
       if (element) {
-        setTimeout(() => {
-          const yOffset = -80;
-          const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
-          window.scrollTo({ top: y, behavior: 'smooth' });
-        }, 100);
+        // Use scrollIntoView so scroll-margin-top on sections is respected
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (id === 'about' || id === 'experience' || id === 'contact') {
+          setActiveSection(id)
+        }
       }
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      setActiveSection('about')
     }
-  }, [location]);
+  }, [location, setActiveSection]);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -50,17 +53,37 @@ export default function Home() {
     };
     fetchProjects();
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        let topVisibleSection = null;
+
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+
+            if (
+              !topVisibleSection ||
+              entry.boundingClientRect.top < topVisibleSection.boundingClientRect.top
+            ) {
+              topVisibleSection = entry;
+            }
+          }
+        });
+
+        if (topVisibleSection && topVisibleSection.target.id) {
+          const id = topVisibleSection.target.id;
+
+          if (id === 'about' || id === 'experience' || id === 'contact') {
+            setActiveSection(id)
+          }
         }
-      });
-    }, { threshold: 0.1 });
+      },
+      { threshold: 0.4 }
+    );
 
     observerRefs.current.forEach((ref) => ref && observer.observe(ref));
     return () => observer.disconnect();
-  }, []);
+  }, [setActiveSection]);
 
   const addToRefs = (el) => {
     if (el && !observerRefs.current.includes(el)) {

@@ -1,9 +1,17 @@
 import { useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { ThemeContext } from '../App.jsx'
+import { ThemeContext, ActiveSectionContext } from '../App.jsx'
 
 export default function NavBar() {
   const { theme, toggleTheme } = useContext(ThemeContext)
+  const { activeSection } = useContext(ActiveSectionContext)
+  const location = useLocation()
+
+  const isHome = location.pathname === '/'
+  const isAboutActive = isHome && activeSection === 'about'
+  const isExperienceActive = isHome && activeSection === 'experience'
+  const isContactActive = isHome && activeSection === 'contact'
+  const isProjectsActive = location.pathname === '/projects'
 
   return (
     <header className="navbar">
@@ -13,10 +21,18 @@ export default function NavBar() {
         </div>
 
         <nav className="nav-pill">
-          <Link to="/#about">About Me</Link>
-          <Link to="/#experience">Experience</Link>
-          <Link to="/projects">Projects</Link>
-          <Link to="/#contact">Contact</Link>
+          <Link to="/#about" className={isAboutActive ? 'active' : ''}>
+            About Me
+          </Link>
+          <Link to="/#experience" className={isExperienceActive ? 'active' : ''}>
+            Experience
+          </Link>
+          <Link to="/projects" className={isProjectsActive ? 'active' : ''}>
+            Projects
+          </Link>
+          <Link to="/#contact" className={isContactActive ? 'active' : ''}>
+            Contact
+          </Link>
 
           <button
             onClick={toggleTheme}
