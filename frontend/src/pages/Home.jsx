@@ -9,6 +9,10 @@ export default function Home() {
   const [featuredProjects, setFeaturedProjects] = useState([]);
   const [isBioExpanded, setIsBioExpanded] = useState(false);
   const [expandedProjectIds, setExpandedProjectIds] = useState(new Set());
+  const roles = ['Software Engineer', 'Web Developer', 'Frontend Developer'];
+  const [activeRoleIndex, setActiveRoleIndex] = useState(0);
+  const [visibleChars, setVisibleChars] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
   const observerRefs = useRef([]);
   const location = useLocation();
   const { setActiveSection } = useContext(ActiveSectionContext)
@@ -38,6 +42,32 @@ export default function Home() {
       setActiveSection('about')
     }
   }, [location, setActiveSection]);
+
+  useEffect(() => {
+    const roles = ['Software Engineer', 'Web Developer', 'Frontend Developer'];
+    const currentRole = roles[activeRoleIndex];
+    const isComplete = visibleChars === currentRole.length;
+    const isCleared = visibleChars === 0 && isDeleting;
+
+    let delay = isDeleting ? 70 : 140;
+    if (!isDeleting && isComplete) delay = 1500;
+    if (isDeleting && isCleared) delay = 600;
+
+    const timeout = setTimeout(() => {
+      if (!isDeleting && !isComplete) {
+        setVisibleChars((prev) => prev + 1);
+      } else if (!isDeleting && isComplete) {
+        setIsDeleting(true);
+      } else if (isDeleting && !isCleared) {
+        setVisibleChars((prev) => prev - 1);
+      } else if (isDeleting && isCleared) {
+        setIsDeleting(false);
+        setActiveRoleIndex((prev) => (prev + 1) % roles.length);
+      }
+    }, delay);
+
+    return () => clearTimeout(timeout);
+  }, [activeRoleIndex, visibleChars, isDeleting]);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -106,7 +136,11 @@ export default function Home() {
           <div className="hero-text-content">
             <p className="welcome-text">WELCOME TO MY SPACE</p>
             <FormattedName />
-            <h2 className="hero-role">Software Engineer</h2>
+            <h2 className="hero-role">
+              <span className="hero-role-text">
+                {roles[activeRoleIndex].slice(0, visibleChars)}
+              </span>
+            </h2>
 
             <div className="hero-bio">
               <p>I'm a Software Engineer with a Master's degree in Software Engineering from Cardiff University. I specialize in creating responsive, user-friendly web applications using modern technologies like React, Next.js, TypeScript, Node.js, C#, and ASP.NET.</p>
